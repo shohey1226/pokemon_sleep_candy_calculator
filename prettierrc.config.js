@@ -1,0 +1,15 @@
+export default config = {
+  bracketSpacing: true,
+  bracketSameLine: false,
+  singleQuote: true,
+  jsxSingleQuote: false,
+  trailingComma: "all",
+  semi: false,
+  printWidth: 110,
+  arrowParens: "always",
+  endOfLine: "auto",
+  proseWrap: "preserve",
+  quoteProps: "as-needed",
+  tabWidth: 2,
+  useTabs: false,
+}
