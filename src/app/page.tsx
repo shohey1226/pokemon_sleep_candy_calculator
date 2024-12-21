@@ -1,5 +1,4 @@
-import Image from "next/image";
-import PokemonForm from "./modules/pokemon/components/PokemonForm";
+import PokemonForm from "../components/PokemonForm";
 
 export default function Home() {
   return (
