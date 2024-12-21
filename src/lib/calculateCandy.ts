@@ -1,4 +1,3 @@
-import { FormValues } from "@/types";
 import { FormValues, OutValues } from "@/types";
 
 const totalExps = [
