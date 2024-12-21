@@ -2,29 +2,30 @@
 
 import React, { useState, useEffect } from "react";
 import { calculateCandy } from "@/lib/calculateCandy";
-import { FormValues } from "@/types";
+import { FormValues, OutValues } from "@/types";
 
 export default function PokemonForm() {
-
-  let [numberOfCandy, setNumberOfCandy] = useState<number | null>(null);
+  let [outValues, setNumberOfCandy] = useState<OutValues | null>(null);
 
   const [formValues, setFormValues] = useState<FormValues>({
     currentLevel: 1,
     targetLevel: 1,
     expType: "600",
     expBoost: "normal"
-  });  
+  });
 
   useEffect(() => {
-    const candy = calculateCandy(formValues);
+    console.log("formValues", formValues);
+    const candy = calculateCandy(formValues);    
     setNumberOfCandy(candy);
   }, [formValues]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    const parsedValue = value && (name === "currentLevel" || name === "targetLevel") ? parseInt(value, 10) : value;
     setFormValues({
       ...formValues,
-      [name]: value
+      [name]: parsedValue
     });
   };
 
@@ -71,24 +72,31 @@ export default function PokemonForm() {
             value="down"
             checked={formValues.expBoost === "down"}
             onChange={handleChange}
-          /> ▼
+          />
+          ▼
           <input
             type="radio"
             name="expBoost"
             value="normal"
             checked={formValues.expBoost === "normal"}
             onChange={handleChange}
-          /> -
+          />
+          -
           <input
             type="radio"
             name="expBoost"
             value="up"
             checked={formValues.expBoost === "up"}
             onChange={handleChange}
-          /> ▲
+          />
+          ▲
         </div>
       </div>
-      <div>{numberOfCandy}</div>
+      <div>
+        <p>Candy Required: {outValues?.calcRequiredCandy}</p>
+        <p>Dream Shards Required: {outValues?.calcRequiredDreamShards}</p>
+        <p>Experience Required: {outValues?.calcRequiredExp}</p>
+      </div>
     </form>
   );
 }
