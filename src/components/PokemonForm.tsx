@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { GlobalStateContext } from '../context/GlobalState';
 import { calculateCandy } from "@/lib/calculateCandy";
 import { FormValues, OutValues } from "@/types";
 
@@ -21,6 +22,8 @@ export default function PokemonForm() {
     setNumberOfCandy(candy);
   }, [formValues]);
 
+  const { dispatch } = useContext(GlobalStateContext);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const parsedValue = value && (name === "currentLevel" || name === "targetLevel") ? parseInt(value, 10) : value;
@@ -31,7 +34,7 @@ export default function PokemonForm() {
   };
 
   return (
-    <form>
+    <div>
       <div>
         <label>現在のレベル</label>
         <input
@@ -124,6 +127,7 @@ export default function PokemonForm() {
         <p>Dream Shards Required: {outValues?.calcRequiredDreamShards}</p>
         <p>Experience Required: {outValues?.calcRequiredExp}</p>
       </div>
-    </form>
+      <button onClick={()=> dispatch({ type: 'ADD_POKEMON', payload: outValues })}>Add Pokemon</button>
+    </div>
   );
 }

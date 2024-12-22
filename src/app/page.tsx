@@ -1,10 +1,12 @@
+import { GlobalStateProvider } from '../context/GlobalState';
 import PokemonForm from "../components/PokemonForm";
+import PokemonList from "../components/PokemonList";
 
 export default function Home() {
   return (
-    <>
-      <h1 className="text-red-500 text-base">test</h1>
-      <PokemonForm />
-    </>
+    <GlobalStateProvider>
+      <PokemonForm />    
+      <PokemonList />
+    </GlobalStateProvider>
   );
 }
