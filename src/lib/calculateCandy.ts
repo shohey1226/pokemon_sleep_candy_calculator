@@ -117,8 +117,8 @@ export const calcRequiredMiniBoostedDreamShards = (
   return dreamShardsSum;
 };
 
-export function calculateCandy(formValues: FormValues, event: CandyBoostEvent): OutValues {
-  switch (event) {
+export function calculateCandy(formValues: FormValues): OutValues {
+  switch (formValues.boostEvent) {
     case "boost":
       return {
         calcRequiredCandy: calcRequiredBoostedCandy(

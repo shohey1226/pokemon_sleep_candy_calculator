@@ -11,7 +11,8 @@ export default function PokemonForm() {
     currentLevel: 1,
     targetLevel: 1,
     expType: "600",
-    expBoost: "normal"
+    expBoost: "normal",
+    boostEvent: "none"
   });
 
   useEffect(() => {
@@ -90,6 +91,32 @@ export default function PokemonForm() {
             onChange={handleChange}
           />
           ▲
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="boostEvent"
+            value="none"
+            checked={formValues.boostEvent === "none"}
+            onChange={handleChange}
+          />
+          通常
+          <input
+            type="radio"
+            name="boostEvent"
+            value="miniBoost"
+            checked={formValues.boostEvent === "miniBoost"}
+            onChange={handleChange}
+          />
+          ミニブースト
+          <input
+            type="radio"
+            name="boostEvent"
+            value="boost"
+            checked={formValues.boostEvent === "boost"}
+            onChange={handleChange}
+          />
+          ブースト
         </div>
       </div>
       <div>
