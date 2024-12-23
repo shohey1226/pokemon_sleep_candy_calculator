@@ -4,6 +4,7 @@ export interface FormValues {
   expType: "600" | "900" | "1080";
   expBoost: "down" | "normal" | "up";
   boostEvent: "none" | "boost" | "miniBoost";
+  name: string;
 }
 
 export interface OutValues {

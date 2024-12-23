@@ -13,7 +13,8 @@ export default function PokemonForm() {
     targetLevel: 1,
     expType: "600",
     expBoost: "normal",
-    boostEvent: "none"
+    boostEvent: "none",
+    name: null,
   });
 
   useEffect(() => {
@@ -36,6 +37,14 @@ export default function PokemonForm() {
   return (
     <div className="">
       <div className="mb-6">
+        <label className="block text-gray-800 font-semibold">名前</label>
+        <input
+          type="text"
+          name="name"
+          className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={formValues.name || ""}
+          onChange={handleChange}
+        />
         <label className="block text-gray-800 font-semibold">現在のレベル</label>
         <input
           type="number"
