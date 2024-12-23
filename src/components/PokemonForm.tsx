@@ -6,7 +6,7 @@ import { calculateCandy } from "@/lib/calculateCandy";
 import { FormValues, OutValues } from "@/types";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
-export default function PokemonForm() {
+export default function PokemonForm({ setOpen }) {
   let [outValues, setNumberOfCandy] = useState<OutValues | null>(null);
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -35,8 +35,14 @@ export default function PokemonForm() {
     });
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch({ type: "ADD_POKEMON", payload: outValues });
+    setOpen(false); // Close the modal
+  };
+
   return (
-    <div className="">
+    <form onSubmit={handleSubmit}>
       <div className="mb-6">
         <label className="block text-gray-800 font-semibold">現在のレベル</label>
         <input
@@ -188,7 +194,7 @@ export default function PokemonForm() {
       </div>
       <button
         className="flex justify-center w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onClick={() => dispatch({ type: "ADD_POKEMON", payload: outValues })}
+        type="submit"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -200,6 +206,6 @@ export default function PokemonForm() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
         </svg>
       </button>
-    </div>
+    </form>
   );
 }
