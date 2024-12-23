@@ -6,7 +6,11 @@ import { calculateCandy } from "@/lib/calculateCandy";
 import { FormValues, OutValues } from "@/types";
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
-export default function PokemonForm({ setOpen }) {
+interface PokemonFormProps {
+  setOpen: (open: boolean) => void;
+}
+
+export default function PokemonForm({ setOpen }: PokemonFormProps) {
   let [outValues, setNumberOfCandy] = useState<OutValues | null>(null);
 
   const [formValues, setFormValues] = useState<FormValues>({
@@ -107,7 +111,7 @@ export default function PokemonForm({ setOpen }) {
           type="single"
           className="flex items-center space-x-4 mt-2"
           value={formValues.expBoost}
-          onValueChange={(value) => setFormValues({ ...formValues, expBoost: value })}
+          onValueChange={(value: "down" | "normal" | "up") => setFormValues({ ...formValues, expBoost: value })}
         >
           <ToggleGroup.Item
             value="down"
