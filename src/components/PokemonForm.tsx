@@ -11,7 +11,7 @@ interface PokemonFormProps {
 }
 
 export default function PokemonForm({ setOpen }: PokemonFormProps) {
-  let [outValues, setNumberOfCandy] = useState<OutValues | null>(null);
+  let [outValues, setOutValues] = useState<OutValues | null>(null);
 
   const [formValues, setFormValues] = useState<FormValues>({
     currentLevel: 1,
@@ -23,9 +23,8 @@ export default function PokemonForm({ setOpen }: PokemonFormProps) {
   });
 
   useEffect(() => {
-    console.log("formValues", formValues);
-    const candy = calculateCandy(formValues);
-    setNumberOfCandy(candy);
+    console.log("formValues", formValues);    
+    setOutValues(calculateCandy(formValues));
   }, [formValues]);
 
   const { dispatch } = useContext(GlobalStateContext);
@@ -41,7 +40,8 @@ export default function PokemonForm({ setOpen }: PokemonFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch({ type: "ADD_POKEMON", payload: outValues });
+    const newOutValues = { ...outValues, name: formValues.name };
+    dispatch({ type: "ADD_POKEMON", payload: newOutValues });
     setOpen(false); // Close the modal
   };
 

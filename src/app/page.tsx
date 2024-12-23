@@ -15,7 +15,9 @@ export default function Home() {
             <PokemonModal />
           </div>
         </div>
-        <PokemonList />
+        <div className="px-2 w-full lg:max-w-[1000px] mx-auto">
+          <PokemonList />
+        </div>
       </div>
     </GlobalStateProvider>
   );
