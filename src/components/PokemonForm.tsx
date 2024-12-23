@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { GlobalStateContext } from "../context/GlobalState";
 import { calculateCandy } from "@/lib/calculateCandy";
 import { FormValues, OutValues } from "@/types";
+import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
 export default function PokemonForm() {
   let [outValues, setNumberOfCandy] = useState<OutValues | null>(null);
@@ -37,7 +38,6 @@ export default function PokemonForm() {
   return (
     <div className="">
       <div className="mb-6">
-
         <label className="block text-gray-800 font-semibold">現在のレベル</label>
         <input
           type="number"
@@ -63,97 +63,117 @@ export default function PokemonForm() {
       </div>
       <div className="mb-6">
         <label className="block text-gray-800 font-semibold">経験値タイプ</label>
-        <select
-          name="expType"
-          className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <ToggleGroup.Root
+          type="single"
+          className="flex items-center space-x-4 mt-2"
           value={formValues.expType}
-          onChange={handleChange}
+          onValueChange={(value) => setFormValues({ ...formValues, expType: value })}
         >
-          <option value="600">600: 通常</option>
-          <option value="900">900: ヨーギラス系統、ミニリュウ系統</option>
-          <option value="1080">1080: ライコウ、エンテイ、スイクン</option>
-        </select>
+          <ToggleGroup.Item
+            value="600"
+            className={`px-4 py-2 rounded-lg cursor-pointer ${
+              formValues.expType === "600" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+          >
+            600
+          </ToggleGroup.Item>
+          <ToggleGroup.Item
+            value="900"
+            className={`px-4 py-2 rounded-lg cursor-pointer ${
+              formValues.expType === "900" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+          >
+            900
+          </ToggleGroup.Item>
+          <ToggleGroup.Item
+            value="1080"
+            className={`px-4 py-2 rounded-lg cursor-pointer ${
+              formValues.expType === "1080" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+          >
+            1080
+          </ToggleGroup.Item>
+        </ToggleGroup.Root>
       </div>
       <div className="mb-6">
         <label className="block text-gray-800 font-semibold">性格による経験値補正</label>
-        <div className="flex items-center space-x-4 mt-2">
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="expBoost"
-              value="down"
-              className="mr-2"
-              checked={formValues.expBoost === "down"}
-              onChange={handleChange}
-            />
+        <ToggleGroup.Root
+          type="single"
+          className="flex items-center space-x-4 mt-2"
+          value={formValues.expBoost}
+          onValueChange={(value) => setFormValues({ ...formValues, expBoost: value })}
+        >
+          <ToggleGroup.Item
+            value="down"
+            className={`px-4 py-2 rounded-lg cursor-pointer ${
+              formValues.expBoost === "down" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+          >
             ▼
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="expBoost"
-              value="normal"
-              className="mr-2"
-              checked={formValues.expBoost === "normal"}
-              onChange={handleChange}
-            />
+          </ToggleGroup.Item>
+          <ToggleGroup.Item
+            value="normal"
+            className={`px-4 py-2 rounded-lg cursor-pointer ${
+              formValues.expBoost === "normal" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+          >
             -
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="expBoost"
-              value="up"
-              className="mr-2"
-              checked={formValues.expBoost === "up"}
-              onChange={handleChange}
-            />
+          </ToggleGroup.Item>
+          <ToggleGroup.Item
+            value="up"
+            className={`px-4 py-2 rounded-lg cursor-pointer ${
+              formValues.expBoost === "up" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+            }`}
+          >
             ▲
-          </label>
-        </div>
-        <div className="flex items-center space-x-4 mt-4">
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="boostEvent"
+          </ToggleGroup.Item>
+        </ToggleGroup.Root>
+
+        <label className="block text-gray-800 font-semibold mt-4">イベント</label>
+        <div className="flex items-center">
+          <ToggleGroup.Root
+            type="single"
+            className="flex items-center space-x-4 mt-2"
+            value={formValues.boostEvent}
+            onValueChange={(value) => setFormValues({ ...formValues, boostEvent: value })}
+          >
+            <ToggleGroup.Item
               value="none"
-              className="mr-2"
-              checked={formValues.boostEvent === "none"}
-              onChange={handleChange}
-            />
-            通常
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="boostEvent"
+              className={`px-4 py-2 rounded-lg cursor-pointer ${
+                formValues.boostEvent === "none" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+              }`}
+            >
+              通常
+            </ToggleGroup.Item>
+            <ToggleGroup.Item
               value="miniBoost"
-              className="mr-2"
-              checked={formValues.boostEvent === "miniBoost"}
-              onChange={handleChange}
-            />
-            ミニブースト
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="boostEvent"
+              className={`px-4 py-2 rounded-lg cursor-pointer ${
+                formValues.boostEvent === "miniBoost" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+              }`}
+            >
+              ミニブースト
+            </ToggleGroup.Item>
+            <ToggleGroup.Item
               value="boost"
-              className="mr-2"
-              checked={formValues.boostEvent === "boost"}
-              onChange={handleChange}
-            />
-            ブースト
-          </label>
+              className={`px-4 py-2 rounded-lg cursor-pointer ${
+                formValues.boostEvent === "boost" ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"
+              }`}
+            >
+              ブースト
+            </ToggleGroup.Item>
+          </ToggleGroup.Root>
         </div>
-        <label className="mt-5 block text-gray-800 font-semibold">コメント</label>
-        <input
-          type="text"
-          name="name"
-          className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={formValues.name}
-          onChange={handleChange}
-        />
+
+        <div className="mt-4 mb-6">
+          <label className="block text-gray-800 font-semibold">コメント</label>
+          <input
+            type="text"
+            name="name"
+            className="w-full p-3 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formValues.name}
+            onChange={handleChange}
+          />
+        </div>
       </div>
       <div className="mb-6">
         <p className="text-gray-800 font-semibold">
