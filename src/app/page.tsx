@@ -10,7 +10,9 @@ export default function Home() {
     <GlobalStateProvider>
       <div className="flex items-center mx-auto justify-center">
         <h1 className="my-3 text-xl font-bold inline-block">ポケスリ飴計算機</h1>
+        <div>
         <PokemonModal />
+        </div>
       </div>
       <PokemonList />
     </GlobalStateProvider>
