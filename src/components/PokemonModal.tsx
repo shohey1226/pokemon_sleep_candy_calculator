@@ -6,7 +6,9 @@ import PokemonForm from "./PokemonForm";
 import { useModal } from "../context/ModalContext";
 
 export default function PokemonModal() {
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, openModal, closeModal, values } = useModal();
+
+  console.log("values in PokemonModal", values);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => open ? openModal() : closeModal()}>
@@ -38,7 +40,7 @@ export default function PokemonModal() {
             </svg>
           </Dialog.Close>
           <Dialog.Title></Dialog.Title>
-          <PokemonForm setOpen={closeModal} />
+          <PokemonForm setOpen={closeModal} values={values} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

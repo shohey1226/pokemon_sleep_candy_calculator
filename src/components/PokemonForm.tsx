@@ -8,18 +8,22 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
 interface PokemonFormProps {
   setOpen: (open: boolean) => void;
+  values: OutValues;
 }
 
-export default function PokemonForm({ setOpen }: PokemonFormProps) {
+export default function PokemonForm({ setOpen, values }: PokemonFormProps) {
+
+  console.log("values in PokemonForm", values);
+
   let [outValues, setOutValues] = useState<OutValues | null>(null);
 
   const [formValues, setFormValues] = useState<FormValues>({
-    currentLevel: 1,
-    targetLevel: 1,
-    expType: "600",
-    expBoost: "normal",
-    boostEvent: "none",
-    name: ""
+    currentLevel: values?.formValues?.currentLevel || 1,
+    targetLevel: values?.formValues?.targetLevel || 1,
+    expType: values?.formValues?.expType || "600",
+    expBoost:values?.formValues?.expBoost || "normal",
+    boostEvent: values?.formValues?.boostEvent || "none",
+    name: values?.formValues?.name || ""
   });
 
   useEffect(() => {
@@ -40,7 +44,7 @@ export default function PokemonForm({ setOpen }: PokemonFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newOutValues = { ...outValues, name: formValues.name };
+    const newOutValues = { ...outValues, formValues: formValues };
     dispatch({ type: "ADD_POKEMON", payload: newOutValues });
     setOpen(false); // Close the modal
   };

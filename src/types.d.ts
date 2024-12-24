@@ -11,4 +11,5 @@ export interface OutValues {
   calcRequiredCandy: number;
   calcRequiredDreamShards: number;
   calcRequiredExp: number;
+  formValues: FormValues;
 }
