@@ -4,11 +4,13 @@ import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import PokemonForm from "./PokemonForm";
 import { useModal } from "../context/ModalContext";
+import { OutValues } from "@/types";
 
 export default function PokemonModal() {
-  const { isOpen, openModal, closeModal, values } = useModal();
+  const { isOpen, openModal, closeModal, values } = useModal(); 
+  const newValue = typeof values === null ? null : values as OutValues; 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={(open) => open ? openModal() : closeModal()}>
+    <Dialog.Root open={isOpen} onOpenChange={(open) => open ? openModal(null) : closeModal()}>
       <div className="flex items-center mx-auto justify-center">
         <Dialog.Trigger className="ml-3 px-6 py-2 bg-blue-500 text-white inline-block rounded">
           <svg
@@ -37,7 +39,7 @@ export default function PokemonModal() {
             </svg>
           </Dialog.Close>
           <Dialog.Title></Dialog.Title>
-          <PokemonForm setOpen={closeModal} values={values} />
+          <PokemonForm setOpen={closeModal} values={newValue} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

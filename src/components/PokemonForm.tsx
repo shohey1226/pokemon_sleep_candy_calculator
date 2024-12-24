@@ -8,11 +8,15 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
 interface PokemonFormProps {
   setOpen: (open: boolean) => void;
-  values: OutValues;
+  values: OutValues | null;
 }
 
 export default function PokemonForm({ setOpen, values }: PokemonFormProps) {
-  let [outValues, setOutValues] = useState<OutValues | null>(null);
+  const [outValues, setOutValues] = useState<OutValues>({
+    calcRequiredCandy: 0,
+    calcRequiredDreamShards: 0,
+    calcRequiredExp: 0,
+  });
   const [formValues, setFormValues] = useState<FormValues>({    
     currentLevel: values?.formValues?.currentLevel || 1,
     targetLevel: values?.formValues?.targetLevel || 1,
@@ -43,12 +47,11 @@ export default function PokemonForm({ setOpen, values }: PokemonFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if(values){
-      const newOutValues = { ...outValues, formValues: formValues };
-      console.log("newOutValues", newOutValues)
+      const newOutValues: OutValues = { ...outValues, formValues: formValues };
       dispatch({ type: "UPDATE_POKEMON", payload: newOutValues });      
     }else{
       const t = Date.now();
-      const newOutValues = { ...outValues, formValues: formValues, id: t };
+      const newOutValues: OutValues = { ...outValues, formValues: formValues, id: t };
       dispatch({ type: "ADD_POKEMON", payload: newOutValues });
     }
     setOpen(false); // Close the modal
@@ -86,7 +89,7 @@ export default function PokemonForm({ setOpen, values }: PokemonFormProps) {
           type="single"
           className="flex items-center space-x-4 mt-2"
           value={formValues.expType}
-          onValueChange={(value) => setFormValues({ ...formValues, expType: value })}
+          onValueChange={(value: "600" | "900" | "1080") => setFormValues({ ...formValues, expType: value })}
         >
           <ToggleGroup.Item
             value="600"
@@ -154,7 +157,7 @@ export default function PokemonForm({ setOpen, values }: PokemonFormProps) {
             type="single"
             className="flex items-center space-x-4 mt-2"
             value={formValues.boostEvent}
-            onValueChange={(value) => setFormValues({ ...formValues, boostEvent: value })}
+            onValueChange={(value: "none" | "miniBoost" | "boost") => setFormValues({ ...formValues, boostEvent: value })}
           >
             <ToggleGroup.Item
               value="none"

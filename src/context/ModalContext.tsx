@@ -1,14 +1,13 @@
 "use client";
 
-import { OutValues } from '@/types';
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 // Define the shape of the modal context
 interface ModalContextType {
   isOpen: boolean;
-  openModal: (values: any) => void;
+  openModal: (values: unknown) => void;
   closeModal: () => void;
-  values: any;
+  values:  unknown | null;
 }
 
 // Initialize the context with a default value
@@ -32,11 +31,10 @@ interface ModalProviderProps {
 
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [values, setValues] = useState<any>({});
+  const [values, setValues] = useState<unknown | null>(null);
 
-  const openModal = (v: any) => {
-    setIsOpen(true)    
-    setValues(v)
+  const openModal = (v: unknown) => {
+    setValues(v);
   };
   const closeModal = () => setIsOpen(false);
 

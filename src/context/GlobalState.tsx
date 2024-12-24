@@ -5,24 +5,19 @@ import { OutValues } from '@/types';
 
 // Define the state type
 interface State {
-  someProperty: string;
-  anotherProperty: number;
   pokemonList: OutValues[];
   // ...other state properties...
 }
 
 // Define the action types
-type Action =
-  | { type: 'SOME_ACTION'; payload: string }
-  | { type: 'ADD_POKEMON'; payload: string }
+type Action =  
+  | { type: 'ADD_POKEMON'; payload: OutValues }
   | { type: 'REMOVE_POKEMON'; payload: number }
   | { type: 'UPDATE_POKEMON'; payload: OutValues };
   // ...other action types...
 
 // Define the initial state as an object with a list
 const initialState: State = {
-  someProperty: 'initial value',
-  anotherProperty: 0,
   pokemonList: [],
   // ...other state properties...
 };
@@ -31,11 +26,6 @@ const initialState: State = {
 const reducer = (state: State, action: Action): State => {
   console.log(state);
   switch (action.type) {
-    case 'SOME_ACTION':
-      return {
-        ...state,
-        someProperty: action.payload,
-      };
     case 'ADD_POKEMON':
       return {
         ...state,
@@ -70,7 +60,10 @@ interface GlobalStateContextType {
 }
 
 // Create the context
-export const GlobalStateContext = createContext<GlobalStateContextType>();
+export const GlobalStateContext = createContext<GlobalStateContextType>({
+  state: initialState,
+  dispatch: () => null,
+});
 
 // Create a provider component
 export const GlobalStateProvider = ({ children }: { children: ReactNode }) => {

@@ -14,8 +14,10 @@ const PokemonList: React.FC = () => {
   };
 
   const handleEditWithModal = (id: number) => {
-    const v: OutValues = state.pokemonList.find((pokemon: OutValues) => pokemon.id === id);    
-    openModal(v);
+    const v: OutValues | undefined = state.pokemonList.find((pokemon: OutValues) => pokemon.id === id);
+    if (v) {
+      openModal(v);
+    }
   };
 
   return (
@@ -31,7 +33,7 @@ const PokemonList: React.FC = () => {
       </thead>
       <tbody>
         {state.pokemonList
-          .sort((a: OutValues, b: OutValues) => a.id - b.id)
+          .sort((a: OutValues, b: OutValues) => (a.id ?? 0) - (b.id ?? 0))
           .map((pokemon: OutValues) => (
             <tr key={pokemon.id} className="odd:bg-white even:bg-gray-50">
               <td className="px-4 py-2 border border-gray-200">{pokemon.calcRequiredCandy}</td>
@@ -39,13 +41,13 @@ const PokemonList: React.FC = () => {
               <td className="px-4 py-2 border border-gray-200">{pokemon.calcRequiredExp}</td>
               <td className="px-4 py-2 border border-gray-200">{pokemon?.formValues?.name}</td>
               <td className="px-4 py-2 border border-gray-200 text-center">
-                <button onClick={() => handleRemovePokemon(pokemon.id)} className="mt-2">
+                <button onClick={() => handleRemovePokemon(pokemon.id ?? 0)} className="mt-2">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="12" cy="12" r="10" stroke="red" strokeWidth="2" fill="red" />
                     <line x1="8" y1="12" x2="16" y2="12" stroke="white" strokeWidth="2" />
                   </svg>
                 </button>
-                <button onClick={() => handleEditWithModal(pokemon.id)}>Edit</button>
+                <button onClick={() => handleEditWithModal(pokemon.id ?? 0)}>Edit</button>
               </td>
             </tr>
           ))}

@@ -1,15 +1,15 @@
 import { 
   calcRequiredExp, 
-  calcCandyExp, 
-  calcBoostedCandyExp, 
-  calcRequiredCandy, 
-  calcRequiredBoostedCandy, 
-  calcRequiredDreamShards, 
-  calcRequiredBoostedDreamShards, 
-  calcRequiredMiniBoostedDreamShards, 
-  calculateCandy 
+  // calcCandyExp, 
+  // calcBoostedCandyExp, 
+  // calcRequiredCandy, 
+  // calcRequiredBoostedCandy, 
+  // calcRequiredDreamShards, 
+  // calcRequiredBoostedDreamShards, 
+  // calcRequiredMiniBoostedDreamShards, 
+  // calculateCandy 
 } from "@/lib/calculateCandy";
-import { FormValues, OutValues } from "@/types";
+//import { FormValues, OutValues } from "@/types";
 
 describe("calculateCandy functions", () => {
   test("calcRequiredExp should return correct experience points", () => {
