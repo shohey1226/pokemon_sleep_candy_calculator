@@ -7,9 +7,6 @@ import { useModal } from "../context/ModalContext";
 
 export default function PokemonModal() {
   const { isOpen, openModal, closeModal, values } = useModal();
-
-  console.log("values in PokemonModal", values);
-
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open) => open ? openModal() : closeModal()}>
       <div className="flex items-center mx-auto justify-center">

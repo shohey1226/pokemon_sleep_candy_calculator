@@ -35,8 +35,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [values, setValues] = useState<any>({});
 
   const openModal = (v: any) => {
-    setIsOpen(true)
-    console.log("v", v);
+    setIsOpen(true)    
     setValues(v)
   };
   const closeModal = () => setIsOpen(false);

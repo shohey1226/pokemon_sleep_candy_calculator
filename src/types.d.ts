@@ -8,6 +8,7 @@ export interface FormValues {
 }
 
 export interface OutValues {
+  id: number;
   calcRequiredCandy: number;
   calcRequiredDreamShards: number;
   calcRequiredExp: number;

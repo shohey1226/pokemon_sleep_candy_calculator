@@ -12,12 +12,8 @@ interface PokemonFormProps {
 }
 
 export default function PokemonForm({ setOpen, values }: PokemonFormProps) {
-
-  console.log("values in PokemonForm", values);
-
   let [outValues, setOutValues] = useState<OutValues | null>(null);
-
-  const [formValues, setFormValues] = useState<FormValues>({
+  const [formValues, setFormValues] = useState<FormValues>({    
     currentLevel: values?.formValues?.currentLevel || 1,
     targetLevel: values?.formValues?.targetLevel || 1,
     expType: values?.formValues?.expType || "600",
@@ -27,8 +23,10 @@ export default function PokemonForm({ setOpen, values }: PokemonFormProps) {
   });
 
   useEffect(() => {
-    console.log("formValues", formValues);    
-    setOutValues(calculateCandy(formValues));
+    const candy =  calculateCandy(formValues)
+    // put origianl values for id
+    const newOutValues = { ...values, ...candy, formValues: formValues };
+    setOutValues(newOutValues);
   }, [formValues]);
 
   const { dispatch } = useContext(GlobalStateContext);
@@ -44,8 +42,15 @@ export default function PokemonForm({ setOpen, values }: PokemonFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newOutValues = { ...outValues, formValues: formValues };
-    dispatch({ type: "ADD_POKEMON", payload: newOutValues });
+    if(values){
+      const newOutValues = { ...outValues, formValues: formValues };
+      console.log("newOutValues", newOutValues)
+      dispatch({ type: "UPDATE_POKEMON", payload: newOutValues });      
+    }else{
+      const t = Date.now();
+      const newOutValues = { ...outValues, formValues: formValues, id: t };
+      dispatch({ type: "ADD_POKEMON", payload: newOutValues });
+    }
     setOpen(false); // Close the modal
   };
 

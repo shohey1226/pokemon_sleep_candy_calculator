@@ -1,12 +1,13 @@
 "use client";
 
 import { createContext, useReducer, ReactNode, Dispatch } from 'react';
+import { OutValues } from '@/types';
 
 // Define the state type
 interface State {
   someProperty: string;
   anotherProperty: number;
-  pokemonList: string[];
+  pokemonList: OutValues[];
   // ...other state properties...
 }
 
@@ -15,6 +16,7 @@ type Action =
   | { type: 'SOME_ACTION'; payload: string }
   | { type: 'ADD_POKEMON'; payload: string }
   | { type: 'REMOVE_POKEMON'; payload: number }
+  | { type: 'UPDATE_POKEMON'; payload: OutValues };
   // ...other action types...
 
 // Define the initial state as an object with a list
@@ -42,8 +44,19 @@ const reducer = (state: State, action: Action): State => {
     case 'REMOVE_POKEMON':
       return {
         ...state,
-        pokemonList: state.pokemonList.filter((pokemon, index) => index !== action.payload),
+        pokemonList: state.pokemonList.filter(pokemon => pokemon.id !== action.payload),
       };
+    case 'UPDATE_POKEMON':
+      return {
+        ...state,
+        pokemonList: state.pokemonList.map(pokemon => {
+          if (pokemon.id === action.payload.id) {
+            return action.payload;
+          }
+          return pokemon;
+        }),
+      };
+    
     // ...handle other actions...
     default:
       return state;
